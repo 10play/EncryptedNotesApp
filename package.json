@@ -10,9 +10,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "@10play/tentap-editor": "0.4.36",
+    "@10play/tentap-editor": "0.4.40",
+    "@nozbe/watermelondb": "10play/WatermelonDBCipher",
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/native-stack": "^6.9.18",
+    "@types/lodash": "^4.14.202",
+    "lodash": "^4.17.21",
     "react": "18.2.0",
     "react-native": "0.73.4",
     "react-native-fs": "^2.20.0",
@@ -23,6 +26,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@babel/plugin-proposal-decorators": "^7.23.9",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
     "@react-native/babel-preset": "0.73.21",

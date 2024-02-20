@@ -4,16 +4,17 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Home} from './Home';
 import {Editor} from './Editor/Editor';
 import {useLocalEditorSrc} from './utils/useLocalEditorSrc';
+import {RootStackParamList, navigationRef} from './utils/navigation';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
   useLocalEditorSrc();
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
-        initialRouteName="Editor"
+        initialRouteName="Home"
         screenOptions={({route}) => ({
           // Don't show header on editor route
           headerShown: route.name === 'Editor' ? false : true,

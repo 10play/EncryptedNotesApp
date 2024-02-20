@@ -10,11 +10,20 @@ import {camera} from '../assets';
 import {EditorCamera} from './EditorCamera';
 import {Camera} from 'react-native-vision-camera';
 import {editorDirectory, localEditorSRC} from '../utils/useLocalEditorSrc';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../utils/navigation';
+import {useAutoSave} from './useAutoSave';
 
-export const Editor = () => {
+export const Editor = ({
+  route: {
+    params: {note},
+  },
+}: NativeStackScreenProps<RootStackParamList, 'Editor', undefined>) => {
   const editor = useEditorBridge({
     avoidIosKeyboard: true, // Keep content above keyboard on ios
+    initialContent: note.html,
   });
+  useAutoSave(editor, note);
 
   const [cameraIsOn, setCameraIsOn] = React.useState(false);
   const cameraRef = React.useRef<Camera>(null);
@@ -35,13 +44,13 @@ export const Editor = () => {
           editor.blur();
           setCameraIsOn(true);
         },
-        active: () => false,
+        active: () => cameraIsOn,
         disabled: () => false,
         image: () => camera,
       },
       ...DEFAULT_TOOLBAR_ITEMS,
     ];
-  }, [editor, setCameraIsOn]);
+  }, [editor, setCameraIsOn, cameraIsOn]);
 
   return (
     <SafeAreaView style={{flex: 1}}>

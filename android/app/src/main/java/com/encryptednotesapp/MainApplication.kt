@@ -28,6 +28,23 @@ class MainApplication : Application(), ReactApplication {
 
         override val isNewArchEnabled: Boolean = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED
         override val isHermesEnabled: Boolean = BuildConfig.IS_HERMES_ENABLED
+        override fun getJSIModulePackage(): JSIModulePackage {
+    return object : JSIModulePackage {
+        override fun getJSIModules(
+            reactApplicationContext: ReactApplicationContext,
+            jsContext: JavaScriptContextHolder
+        ): List<JSIModuleSpec> {
+            val modules = mutableListOf<JSIModuleSpec>()
+
+            // Adding modules directly without needing Arrays.asList()
+            modules.addAll(WatermelonDBJSIPackage().getJSIModules(reactApplicationContext, jsContext))
+            // Add more JSI packages here in a similar manner
+            // modules.addAll(ReanimatedJSIModulePackage().getJSIModules(reactApplicationContext, jsContext))
+
+            return modules
+        }
+    }
+}
       }
 
   override val reactHost: ReactHost

@@ -1123,6 +1123,7 @@ PODS:
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
+  - simdjson (3.1.0-wmelon1)
   - SocketRocket (0.6.1)
   - tentap (0.4.36):
     - glog
@@ -1132,6 +1133,9 @@ PODS:
     - React
     - React-callinvoker
     - React-Core
+  - WatermelonDB (0.27.1):
+    - React
+    - simdjson
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -1211,8 +1215,10 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNFS (from `../node_modules/react-native-fs`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - "simdjson (from `../node_modules/@nozbe/simdjson`)"
   - "tentap (from `../node_modules/@10play/tentap-editor`)"
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
+  - "WatermelonDB (from `../node_modules/@nozbe/watermelondb`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1335,10 +1341,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fs"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  simdjson:
+    :path: "../node_modules/@nozbe/simdjson"
   tentap:
     :path: "../node_modules/@10play/tentap-editor"
   VisionCamera:
     :path: "../node_modules/react-native-vision-camera"
+  WatermelonDB:
+    :path: "../node_modules/@nozbe/watermelondb"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -1406,11 +1416,13 @@ SPEC CHECKSUMS:
   ReactCommon: 840a955d37b7f3358554d819446bffcf624b2522
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNScreens: b582cb834dc4133307562e930e8fa914b8c04ef2
+  simdjson: e6bfae9ce4bcdc80452d388d593816f1ca2106f3
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   tentap: 05852c7ec058000dd8ade391ab853d5a41b475dc
   VisionCamera: 7a5c87805b13adaaa557132b44879ed1e1e39786
+  WatermelonDB: 842d22ba555425aa9f3ce551239a001200c539bc
   Yoga: 64cd2a583ead952b0315d5135bf39e053ae9be70
 
-PODFILE CHECKSUM: 70b5182151f7b059991b06181af503ac26eeb67f
+PODFILE CHECKSUM: a21f514471e5babeaac4c0c359de29d3e244e3ea
 
 COCOAPODS: 1.12.0
