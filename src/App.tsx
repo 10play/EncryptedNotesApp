@@ -9,7 +9,12 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Editor">
+      <Stack.Navigator
+        initialRouteName="Editor"
+        screenOptions={({route}) => ({
+          // Don't show header on editor route
+          headerShown: route.name === 'Editor' ? false : true,
+        })}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Editor" component={Editor} />
       </Stack.Navigator>
