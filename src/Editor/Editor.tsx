@@ -9,6 +9,7 @@ import {KeyboardAvoidingView, Platform, SafeAreaView} from 'react-native';
 import {camera} from '../assets';
 import {EditorCamera} from './EditorCamera';
 import {Camera} from 'react-native-vision-camera';
+import {editorDirectory, localEditorSRC} from '../utils/useLocalEditorSrc';
 
 export const Editor = () => {
   const editor = useEditorBridge({
@@ -18,10 +19,12 @@ export const Editor = () => {
   const [cameraIsOn, setCameraIsOn] = React.useState(false);
   const cameraRef = React.useRef<Camera>(null);
 
-  const onPhoto = async (_photoPath: string) => {
-    // When we take a photo we want to get a description of the photo contents
-    // and insert it into the editor with a quote
+  const onPhoto = async (photoPath: string) => {
     setCameraIsOn(false);
+    editor.setImage(`file://${photoPath}`);
+    const editorState = editor.getEditorState();
+    editor.setSelection(editorState.selection.from, editorState.selection.to);
+    editor.focus();
   };
 
   const toolbarItems = useMemo(() => {
@@ -42,7 +45,16 @@ export const Editor = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <RichText editor={editor} />
+      <RichText
+        editor={editor}
+        source={{uri: localEditorSRC}}
+        allowFileAccess={true}
+        allowFileAccessFromFileURLs={true}
+        allowUniversalAccessFromFileURLs={true}
+        originWhitelist={['*']}
+        mixedContentMode="always"
+        allowingReadAccessToURL={editorDirectory}
+      />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{
