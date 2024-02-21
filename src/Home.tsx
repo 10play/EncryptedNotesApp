@@ -2,38 +2,77 @@ import React from 'react';
 import {withObservables} from '@nozbe/watermelondb/react';
 import {dbManager, useDB} from './db/useDB';
 import {NoteModel, NotesTable} from './db/Note';
-import {
-  FlatList,
-  ListRenderItem,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, ListRenderItem, Text} from 'react-native';
 import {navigate} from './utils/navigation';
+import styled from 'styled-components/native';
+import {themes} from './theme/theme';
+import {StyledText} from './Components/StyledText';
+
+const HomeContainer = styled.View`
+  background-color: ${props => props.theme['--background-primary']};
+  flex: 1;
+`;
+const CreateNoteButton = styled.TouchableOpacity`
+  position: absolute;
+  background-color: ${themes.dark['--background-primary']};
+  border-radius: 50px;
+  border-style: solid;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  bottom: 50px;
+  right: 20px;
+  z-index: 10;
+`;
+const CreateNotePlusText = styled.Text`
+  color: ${themes.dark['--text-primary']};
+  font-size: 40px;
+  text-align: center;
+  padding-bottom: 7px; /* # TODO use icon */
+  padding-left: 1px;
+`;
 
 export const Home = () => {
   const db = useDB();
 
+  const createNote = async () => {
+    console.log('!!');
+    if (!db) return;
+    await db.write(async () => {
+      await db.collections.get<NoteModel>(NotesTable).create(note => {
+        note.title = 'Untitled';
+        note.html = '<p></p>';
+      });
+    });
+  };
+
   return (
-    <View style={{flex: 1}}>
-      <TouchableOpacity
-        onPress={async () => {
-          if (!db) return;
-          await db.write(async () => {
-            await db.collections.get<NoteModel>(NotesTable).create(note => {
-              note.title = 'Untitled';
-              note.html = '<p></p>';
-            });
-          });
-        }}
-        disabled={!db}
-        style={{padding: 20}}>
-        <Text>Create Note</Text>
-      </TouchableOpacity>
+    <HomeContainer>
+      <CreateNoteButton onPress={createNote} disabled={!db}>
+        <CreateNotePlusText>+</CreateNotePlusText>
+      </CreateNoteButton>
       <NotesList />
-    </View>
+    </HomeContainer>
   );
 };
+
+const NoteListButton = styled.TouchableOpacity`
+  width: 100%;
+  padding: 20px;
+  border-width: 1px;
+  border-style: 'solid';
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+`;
+
+const DeleteButton = styled.TouchableOpacity`
+  background-color: ${props => props.theme['--background-destructive']};
+  border-radius: 30px;
+  padding: 4px;
+  color: ${props => props.theme['--text-primary']};
+`;
 
 interface NotesListProps {
   notes: NoteModel[];
@@ -41,18 +80,18 @@ interface NotesListProps {
 const _NotesList = ({notes}: NotesListProps) => {
   const renderNode: ListRenderItem<NoteModel> = ({item: note}) => {
     return (
-      <TouchableOpacity
+      <NoteListButton
         onPress={() => {
           navigate('Editor', {note});
-        }}
-        style={{
-          width: '100%',
-          padding: 20,
-          borderWidth: 1,
-          borderStyle: 'solid',
         }}>
         <Text>{note.title}</Text>
-      </TouchableOpacity>
+        <DeleteButton
+          onPress={async () => {
+            note.deleteNote();
+          }}>
+          <StyledText>Delete</StyledText>
+        </DeleteButton>
+      </NoteListButton>
     );
   };
   return (

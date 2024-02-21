@@ -21,4 +21,8 @@ export class NoteModel extends Model {
       note.html = htmlContent;
     });
   }
+
+  @writer async deleteNote() {
+    await this.markAsDeleted();
+  }
 }

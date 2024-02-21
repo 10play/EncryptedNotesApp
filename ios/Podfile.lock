@@ -1125,7 +1125,7 @@ PODS:
     - React-Core
   - simdjson (3.1.0-wmelon1)
   - SocketRocket (0.6.1)
-  - tentap (0.4.36):
+  - tentap (0.4.40):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1418,7 +1418,7 @@ SPEC CHECKSUMS:
   RNScreens: b582cb834dc4133307562e930e8fa914b8c04ef2
   simdjson: e6bfae9ce4bcdc80452d388d593816f1ca2106f3
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  tentap: 05852c7ec058000dd8ade391ab853d5a41b475dc
+  tentap: fc1a4c83a0e68251975047339424e1afc96516ac
   VisionCamera: 7a5c87805b13adaaa557132b44879ed1e1e39786
   WatermelonDB: 842d22ba555425aa9f3ce551239a001200c539bc
   Yoga: 64cd2a583ead952b0315d5135bf39e053ae9be70
