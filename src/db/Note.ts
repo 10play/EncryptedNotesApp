@@ -16,8 +16,9 @@ export class NoteModel extends Model {
   @text(NoteFields.Subtitle) subtitle?: string;
   @text(NoteFields.Html) html!: string;
 
-  @writer async updateNote(htmlContent: string) {
+  @writer async updateNote(title: string, htmlContent: string) {
     await this.update(note => {
+      note.title = title;
       note.html = htmlContent;
     });
   }

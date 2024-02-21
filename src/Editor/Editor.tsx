@@ -4,6 +4,8 @@ import {
   useEditorBridge,
   Toolbar,
   DEFAULT_TOOLBAR_ITEMS,
+  TenTapStartKit,
+  CoreBridge,
 } from '@10play/tentap-editor';
 import {KeyboardAvoidingView, Platform, SafeAreaView} from 'react-native';
 import {camera} from '../assets';
@@ -22,6 +24,12 @@ export const Editor = ({
   const editor = useEditorBridge({
     avoidIosKeyboard: true, // Keep content above keyboard on ios
     initialContent: note.html,
+    bridgeExtensions: [
+      ...TenTapStartKit,
+      CoreBridge.extendExtension({
+        content: 'heading block+',
+      }),
+    ],
   });
   useAutoSave(editor, note);
 

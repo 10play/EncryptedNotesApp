@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@10play/tentap-editor": "0.4.40",
+    "@10play/tentap-editor": "0.4.42",
     "@nozbe/watermelondb": "10play/WatermelonDBCipher",
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/native-stack": "^6.9.18",

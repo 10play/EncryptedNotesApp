@@ -74,26 +74,32 @@ const DeleteButton = styled.TouchableOpacity`
   color: ${props => props.theme['--text-primary']};
 `;
 
+interface NoteListItemProps {
+  note: NoteModel;
+}
+const _NoteListItem = ({note}: NoteListItemProps) => {
+  return (
+    <NoteListButton
+      onPress={() => {
+        navigate('Editor', {note});
+      }}>
+      <Text>{note.title}</Text>
+      <DeleteButton onPress={() => note.deleteNote()}>
+        <StyledText>Delete</StyledText>
+      </DeleteButton>
+    </NoteListButton>
+  );
+};
+const NoteListItem = withObservables(['note'], ({note}: NoteListItemProps) => ({
+  note: note.observe(),
+}))(_NoteListItem);
 interface NotesListProps {
   notes: NoteModel[];
 }
 const _NotesList = ({notes}: NotesListProps) => {
-  const renderNode: ListRenderItem<NoteModel> = ({item: note}) => {
-    return (
-      <NoteListButton
-        onPress={() => {
-          navigate('Editor', {note});
-        }}>
-        <Text>{note.title}</Text>
-        <DeleteButton
-          onPress={async () => {
-            note.deleteNote();
-          }}>
-          <StyledText>Delete</StyledText>
-        </DeleteButton>
-      </NoteListButton>
-    );
-  };
+  const renderNode: ListRenderItem<NoteModel> = ({item: note}) => (
+    <NoteListItem note={note} />
+  );
   return (
     <FlatList
       data={notes}
