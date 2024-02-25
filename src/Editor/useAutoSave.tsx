@@ -10,7 +10,7 @@ export const useAutoSave = (editor: EditorBridge, note: NoteModel) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const saveContent = useCallback(
     debounce(async (note: NoteModel, html: string, json: object) => {
-      const title = json.content[0].content[0].text;
+      const title = json.content[0]?.content?.[0]?.text || 'Untitled';
       await note.updateNote(title, html);
       setIsSaving(false);
     }),
@@ -18,7 +18,7 @@ export const useAutoSave = (editor: EditorBridge, note: NoteModel) => {
   );
 
   useEffect(() => {
-    if (!htmlContent || !jsonContent) return;
+    if (htmlContent === undefined || jsonContent === undefined) return;
     setIsSaving(true);
     saveContent(note, htmlContent, jsonContent);
   }, [note, saveContent, htmlContent, jsonContent]);

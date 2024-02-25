@@ -37,12 +37,10 @@ export const Home = () => {
   const db = useDB();
 
   const createNote = async () => {
-    console.log('!!');
     if (!db) return;
     await db.write(async () => {
       await db.collections.get<NoteModel>(NotesTable).create(note => {
         note.title = 'Untitled';
-        note.html = '<p></p>';
       });
     });
   };

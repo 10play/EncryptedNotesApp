@@ -6,6 +6,8 @@ import {
   DEFAULT_TOOLBAR_ITEMS,
   TenTapStartKit,
   CoreBridge,
+  PlaceholderBridge,
+  HeadingBridge,
 } from '@10play/tentap-editor';
 import {KeyboardAvoidingView, Platform, SafeAreaView} from 'react-native';
 import {camera} from '../assets';
@@ -15,6 +17,14 @@ import {editorDirectory, localEditorSRC} from '../utils/useLocalEditorSrc';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../utils/navigation';
 import {useAutoSave} from './useAutoSave';
+import {rubik} from './font';
+
+const customFont = `
+${rubik}
+* {
+    font-family: 'Protest Riot', sans-serif;
+}
+`;
 
 export const Editor = ({
   route: {
@@ -26,9 +36,22 @@ export const Editor = ({
     initialContent: note.html,
     bridgeExtensions: [
       ...TenTapStartKit,
-      CoreBridge.extendExtension({
+      CoreBridge.configureCSS(customFont).extendExtension({
         content: 'heading block+',
       }),
+      PlaceholderBridge.configureExtension({
+        showOnlyCurrent: false,
+        placeholder: 'Enter a Title',
+      }),
+      HeadingBridge.configureCSS(`
+      .ProseMirror h1.is-empty::before {
+        content: attr(data-placeholder);
+        float: left;
+        color: #ced4da;
+        pointer-events: none;
+        height: 0;
+      }
+      `),
     ],
   });
   useAutoSave(editor, note);
