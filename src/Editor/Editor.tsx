@@ -1,16 +1,15 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {
   RichText,
   useEditorBridge,
-  Toolbar,
-  DEFAULT_TOOLBAR_ITEMS,
   TenTapStartKit,
   CoreBridge,
   PlaceholderBridge,
   HeadingBridge,
+  ColorKeyboard,
+  CustomKeyboard,
 } from '@10play/tentap-editor';
-import {KeyboardAvoidingView, Platform, SafeAreaView} from 'react-native';
-import {camera} from '../assets';
+import {KeyboardAvoidingView, Platform} from 'react-native';
 import {EditorCamera} from './EditorCamera';
 import {Camera} from 'react-native-vision-camera';
 import {editorDirectory, localEditorSRC} from '../utils/useLocalEditorSrc';
@@ -19,6 +18,7 @@ import {RootStackParamList} from '../utils/navigation';
 import {useAutoSave} from './useAutoSave';
 import {rubik} from './font';
 import {Layout} from '../Components/Layout';
+import {EditorToolbar} from './EditorToolbar';
 
 const customFont = `
 ${rubik}
@@ -57,35 +57,25 @@ export const Editor = ({
   });
   useAutoSave(editor, note);
 
-  const [cameraIsOn, setCameraIsOn] = React.useState(false);
+  const [isCameraOn, setCameraOn] = React.useState(false);
   const cameraRef = React.useRef<Camera>(null);
 
+  // custom keyboard
+  const rootRef = React.useRef(null);
+  const [activeKeyboard, setActiveKeyboard] = React.useState<
+    string | undefined
+  >(undefined);
+
   const onPhoto = async (photoPath: string) => {
-    setCameraIsOn(false);
+    setCameraOn(false);
     editor.setImage(`file://${photoPath}`);
     const editorState = editor.getEditorState();
     editor.setSelection(editorState.selection.from, editorState.selection.to);
     editor.focus();
   };
 
-  const toolbarItems = useMemo(() => {
-    return [
-      // Here we add camera button to default toolbar items
-      {
-        onPress: () => () => {
-          editor.blur();
-          setCameraIsOn(true);
-        },
-        active: () => cameraIsOn,
-        disabled: () => false,
-        image: () => camera,
-      },
-      ...DEFAULT_TOOLBAR_ITEMS,
-    ];
-  }, [editor, setCameraIsOn, cameraIsOn]);
-
   return (
-    <Layout>
+    <Layout ref={rootRef}>
       <RichText
         editor={editor}
         source={{uri: localEditorSRC}}
@@ -103,9 +93,22 @@ export const Editor = ({
           width: '100%',
           bottom: 0,
         }}>
-        <Toolbar editor={editor} items={toolbarItems} />
+        <EditorToolbar
+          editor={editor}
+          activeKeyboard={activeKeyboard}
+          setActiveKeyboard={setActiveKeyboard}
+          isCameraOn={isCameraOn}
+          setCameraOn={setCameraOn}
+        />
+        <CustomKeyboard
+          rootRef={rootRef}
+          activeKeyboardID={activeKeyboard}
+          setActiveKeyboardID={setActiveKeyboard}
+          keyboards={[ColorKeyboard]} // <-- here we add the color keyboard
+          editor={editor}
+        />
       </KeyboardAvoidingView>
-      <EditorCamera cameraRef={cameraRef} onPhoto={onPhoto} show={cameraIsOn} />
+      <EditorCamera cameraRef={cameraRef} onPhoto={onPhoto} show={isCameraOn} />
     </Layout>
   );
 };
