@@ -2,11 +2,12 @@ import React from 'react';
 import {withObservables} from '@nozbe/watermelondb/react';
 import {dbManager, useDB} from './db/useDB';
 import {NoteModel, NotesTable} from './db/Note';
-import {FlatList, ListRenderItem, Text} from 'react-native';
+import {Button, FlatList, ListRenderItem, Text} from 'react-native';
 import {navigate} from './utils/navigation';
 import styled from 'styled-components/native';
 import {themes} from './theme/theme';
 import {StyledText} from './Components/StyledText';
+import {useTheme} from './theme/ThemeContext';
 
 const HomeContainer = styled.View`
   background-color: ${props => props.theme['--background-primary']};
@@ -35,6 +36,7 @@ const CreateNotePlusText = styled.Text`
 
 export const Home = () => {
   const db = useDB();
+  const [, toggleTheme] = useTheme();
 
   const createNote = async () => {
     if (!db) return;
@@ -47,6 +49,7 @@ export const Home = () => {
 
   return (
     <HomeContainer>
+      <Button title="Toggle Theme" onPress={() => toggleTheme()} />
       <CreateNoteButton onPress={createNote} disabled={!db}>
         <CreateNotePlusText>+</CreateNotePlusText>
       </CreateNoteButton>
@@ -63,6 +66,7 @@ const NoteListButton = styled.TouchableOpacity`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  border-color: ${props => props.theme['--border-primary']};
 `;
 
 const DeleteButton = styled.TouchableOpacity`
@@ -81,7 +85,7 @@ const _NoteListItem = ({note}: NoteListItemProps) => {
       onPress={() => {
         navigate('Editor', {note});
       }}>
-      <Text>{note.title}</Text>
+      <StyledText>{note.title}</StyledText>
       <DeleteButton onPress={() => note.deleteNote()}>
         <StyledText>Delete</StyledText>
       </DeleteButton>

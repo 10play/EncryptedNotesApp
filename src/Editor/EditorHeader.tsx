@@ -19,7 +19,7 @@ const HeaderContainer = styled.View`
 const BackChevron = styled.Image`
   width: 24px;
   height: 24px;
-  fill: ${props => props.theme['--text-primary']};
+  tint-color: ${props => props.theme['--text-primary']};
 `;
 const HeaderTitle = styled(StyledText)`
   font-size: 20px;
@@ -38,7 +38,9 @@ export const EditorHeader = ({editor, initialTitle}: EditorHeaderProps) => {
       <TouchableOpacity onPress={() => navigationRef.goBack()}>
         <BackChevron source={chevron} />
       </TouchableOpacity>
-      <HeaderTitle>{editorState.isReady ? title : initialTitle}</HeaderTitle>
+      <HeaderTitle>
+        {editorState.isReady ? title || initialTitle : initialTitle}
+      </HeaderTitle>
     </HeaderContainer>
   );
 };

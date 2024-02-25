@@ -8,6 +8,8 @@ import {
   HeadingBridge,
   ColorKeyboard,
   CustomKeyboard,
+  darkEditorTheme,
+  darkEditorCss,
 } from '@10play/tentap-editor';
 import {KeyboardAvoidingView, Platform} from 'react-native';
 import {EditorCamera} from './EditorCamera';
@@ -19,10 +21,11 @@ import {Layout} from '../Components/Layout';
 import {EditorToolbar} from './EditorToolbar';
 import {EditorHeader} from './EditorHeader';
 import {useAutoSave} from './useAutoSave';
+import {useTheme} from '../theme/ThemeContext';
 
-const editorCSS = `
+const baseEditorCSS = `
 * {
-    font-family: 'Rubik', sans-serif;
+    font-family: sans-serif;
 }
 body {
   padding: 12px;
@@ -34,6 +37,10 @@ export const Editor = ({
     params: {note},
   },
 }: NativeStackScreenProps<RootStackParamList, 'Editor', undefined>) => {
+  const [theme] = useTheme();
+
+  const editorCSS =
+    theme === 'dark' ? `${baseEditorCSS} ${darkEditorCss}` : baseEditorCSS;
   const editor = useEditorBridge({
     avoidIosKeyboard: true, // Keep content above keyboard on ios
     initialContent: note.html,
@@ -56,6 +63,7 @@ export const Editor = ({
         }
         `),
     ],
+    theme: theme === 'dark' ? darkEditorTheme : undefined,
   });
   // autosave
   useAutoSave(editor, note);
