@@ -15,10 +15,11 @@ import {Camera} from 'react-native-vision-camera';
 import {editorDirectory, localEditorSRC} from '../utils/useLocalEditorSrc';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../utils/navigation';
-import {useAutoSave} from './useAutoSave';
 import {rubik} from './font';
 import {Layout} from '../Components/Layout';
 import {EditorToolbar} from './EditorToolbar';
+import {EditorHeader} from './EditorHeader';
+import {useAutoSave} from './useAutoSave';
 
 const customFont = `
 ${rubik}
@@ -55,6 +56,7 @@ export const Editor = ({
       `),
     ],
   });
+  // autosave
   useAutoSave(editor, note);
 
   const [isCameraOn, setCameraOn] = React.useState(false);
@@ -76,6 +78,7 @@ export const Editor = ({
 
   return (
     <Layout ref={rootRef}>
+      <EditorHeader editor={editor} />
       <RichText
         editor={editor}
         source={{uri: localEditorSRC}}
@@ -104,7 +107,7 @@ export const Editor = ({
           rootRef={rootRef}
           activeKeyboardID={activeKeyboard}
           setActiveKeyboardID={setActiveKeyboard}
-          keyboards={[ColorKeyboard]} // <-- here we add the color keyboard
+          keyboards={[ColorKeyboard]}
           editor={editor}
         />
       </KeyboardAvoidingView>

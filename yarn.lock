@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@10play/tentap-editor@0.4.43":
+"@10play/tentap-editor@0.4.42":
   version "0.4.42"
   resolved "https://registry.yarnpkg.com/@10play/tentap-editor/-/tentap-editor-0.4.42.tgz#9dd2510e101ca2c84f80c8f035c4be85982e076b"
   integrity sha512-iG+N3v6GjmXPIdXBLD9gPh0g0fOI4NSvqyCrF82XLTbiPgohr/AVFp2GTj6i9wcRqJLhPZ7Omi4Zu5a8vtOw3g==

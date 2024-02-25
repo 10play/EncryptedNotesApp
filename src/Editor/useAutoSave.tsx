@@ -2,15 +2,17 @@ import {EditorBridge, useEditorContent} from '@10play/tentap-editor';
 import {debounce} from 'lodash';
 import {NoteModel} from '../db/Note';
 import {useCallback, useEffect, useState} from 'react';
+import {useEditorTitle} from '../utils/useEditorTitle';
+
 export const useAutoSave = (editor: EditorBridge, note: NoteModel) => {
   const [isSaving, setIsSaving] = useState(false);
+
+  const docTitle = useEditorTitle(editor);
   const htmlContent = useEditorContent(editor, {type: 'html'});
-  const jsonContent = useEditorContent(editor, {type: 'json'});
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const saveContent = useCallback(
-    debounce(async (note: NoteModel, html: string, json: object) => {
-      const title = json.content[0]?.content?.[0]?.text || 'Untitled';
+    debounce(async (note: NoteModel, html: string, title: string) => {
       await note.updateNote(title, html);
       setIsSaving(false);
     }),
@@ -18,10 +20,10 @@ export const useAutoSave = (editor: EditorBridge, note: NoteModel) => {
   );
 
   useEffect(() => {
-    if (htmlContent === undefined || jsonContent === undefined) return;
+    if (htmlContent === undefined || docTitle === undefined) return;
     setIsSaving(true);
-    saveContent(note, htmlContent, jsonContent);
-  }, [note, saveContent, htmlContent, jsonContent]);
+    saveContent(note, htmlContent, docTitle);
+  }, [note, saveContent, htmlContent, docTitle]);
 
   return isSaving;
 };

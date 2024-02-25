@@ -150,7 +150,8 @@ const theme = {
     '--text-secondary': `rgba(${colors['--black']}, ${opacities['--56']})`,
     '--background-primary': `rgb(${colors['--white']})`,
     '--background-destructive': `rgb(${colors['--red-100']})`,
-    '--border-primary': `rgba(${colors['--white']}, ${opacities['--12']})`,
+    '--border-primary': `rgba(${colors['--black']}, ${opacities['--12']})`,
+    '--border-secondary': `rgba(${colors['--black']}, ${opacities['--12']})`,
   },
   dark: {
     ...colors,
@@ -158,7 +159,8 @@ const theme = {
     '--text-secondary': `rgba(${colors['--white']}, ${opacities['--54']})`,
     '--background-primary': `rgb(${colors['--black']})`,
     '--background-destructive': `rgb(${colors['--red-500']})`,
-    '--border-primary': `rgba(${colors['--black']}, ${opacities['--12']})`,
+    '--border-primary': `rgba(${colors['--white']}, ${opacities['--12']})`,
+    '--border-secondary': `rgba(${colors['--white']}, ${opacities['--12']})`,
   },
 } as const;
 
