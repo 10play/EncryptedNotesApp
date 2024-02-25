@@ -15,16 +15,17 @@ import {Camera} from 'react-native-vision-camera';
 import {editorDirectory, localEditorSRC} from '../utils/useLocalEditorSrc';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../utils/navigation';
-import {rubik} from './font';
 import {Layout} from '../Components/Layout';
 import {EditorToolbar} from './EditorToolbar';
 import {EditorHeader} from './EditorHeader';
 import {useAutoSave} from './useAutoSave';
 
-const customFont = `
-${rubik}
+const editorCSS = `
 * {
-    font-family: 'Protest Riot', sans-serif;
+    font-family: 'Rubik', sans-serif;
+}
+body {
+  padding: 12px;
 }
 `;
 
@@ -38,7 +39,7 @@ export const Editor = ({
     initialContent: note.html,
     bridgeExtensions: [
       ...TenTapStartKit,
-      CoreBridge.configureCSS(customFont).extendExtension({
+      CoreBridge.configureCSS(editorCSS).extendExtension({
         content: 'heading block+',
       }),
       PlaceholderBridge.configureExtension({
@@ -46,14 +47,14 @@ export const Editor = ({
         placeholder: 'Enter a Title',
       }),
       HeadingBridge.configureCSS(`
-      .ProseMirror h1.is-empty::before {
-        content: attr(data-placeholder);
-        float: left;
-        color: #ced4da;
-        pointer-events: none;
-        height: 0;
-      }
-      `),
+        .ProseMirror h1.is-empty::before {
+          content: attr(data-placeholder);
+          float: left;
+          color: #ced4da;
+          pointer-events: none;
+          height: 0;
+        }
+        `),
     ],
   });
   // autosave
@@ -78,7 +79,7 @@ export const Editor = ({
 
   return (
     <Layout ref={rootRef}>
-      <EditorHeader editor={editor} />
+      <EditorHeader editor={editor} initialTitle={note.title} />
       <RichText
         editor={editor}
         source={{uri: localEditorSRC}}

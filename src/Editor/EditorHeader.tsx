@@ -19,6 +19,7 @@ const HeaderContainer = styled.View`
 const BackChevron = styled.Image`
   width: 24px;
   height: 24px;
+  fill: ${props => props.theme['--text-primary']};
 `;
 const HeaderTitle = styled(StyledText)`
   font-size: 20px;
@@ -26,8 +27,9 @@ const HeaderTitle = styled(StyledText)`
 
 interface EditorHeaderProps {
   editor: EditorBridge;
+  initialTitle: string;
 }
-export const EditorHeader = ({editor}: EditorHeaderProps) => {
+export const EditorHeader = ({editor, initialTitle}: EditorHeaderProps) => {
   const title = useEditorTitle(editor);
   const editorState = useBridgeState(editor);
 
@@ -36,7 +38,7 @@ export const EditorHeader = ({editor}: EditorHeaderProps) => {
       <TouchableOpacity onPress={() => navigationRef.goBack()}>
         <BackChevron source={chevron} />
       </TouchableOpacity>
-      <HeaderTitle>{editorState.isReady ? title : 'loading...'}</HeaderTitle>
+      <HeaderTitle>{editorState.isReady ? title : initialTitle}</HeaderTitle>
     </HeaderContainer>
   );
 };

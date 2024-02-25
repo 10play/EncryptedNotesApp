@@ -2,12 +2,11 @@ import React from 'react';
 import {withObservables} from '@nozbe/watermelondb/react';
 import {dbManager, useDB} from './db/useDB';
 import {NoteModel, NotesTable} from './db/Note';
-import {Button, FlatList, ListRenderItem, Text} from 'react-native';
+import {FlatList, ListRenderItem, Text} from 'react-native';
 import {navigate} from './utils/navigation';
 import styled from 'styled-components/native';
 import {themes} from './theme/theme';
 import {StyledText} from './Components/StyledText';
-import {useTheme} from './theme/ThemeContext';
 
 const HomeContainer = styled.View`
   background-color: ${props => props.theme['--background-primary']};
@@ -36,7 +35,6 @@ const CreateNotePlusText = styled.Text`
 
 export const Home = () => {
   const db = useDB();
-  const [_, toggleTheme] = useTheme();
 
   const createNote = async () => {
     if (!db) return;
