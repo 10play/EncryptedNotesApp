@@ -59,7 +59,7 @@ const NoteListButton = styled.TouchableOpacity`
   width: 100%;
   padding: 20px;
   border-width: 1px;
-  border-style: 'solid';
+  border-style: solid;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
