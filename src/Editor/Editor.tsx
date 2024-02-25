@@ -18,6 +18,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../utils/navigation';
 import {useAutoSave} from './useAutoSave';
 import {rubik} from './font';
+import {Layout} from '../Components/Layout';
 
 const customFont = `
 ${rubik}
@@ -84,7 +85,7 @@ export const Editor = ({
   }, [editor, setCameraIsOn, cameraIsOn]);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <Layout>
       <RichText
         editor={editor}
         source={{uri: localEditorSRC}}
@@ -105,6 +106,6 @@ export const Editor = ({
         <Toolbar editor={editor} items={toolbarItems} />
       </KeyboardAvoidingView>
       <EditorCamera cameraRef={cameraRef} onPhoto={onPhoto} show={cameraIsOn} />
-    </SafeAreaView>
+    </Layout>
   );
 };

@@ -24,6 +24,6 @@ export class NoteModel extends Model {
   }
 
   @writer async deleteNote() {
-    await this.markAsDeleted();
+    await this.destroyPermanently();
   }
 }

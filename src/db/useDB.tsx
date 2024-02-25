@@ -12,7 +12,7 @@ class DBManager {
 
   async init() {
     // TODO get passphrase
-    const passphrase = '';
+    const passphrase = 'password';
     this.db = openDB(passphrase);
     this.dbCBs.forEach(cb => cb(this.db!));
   }

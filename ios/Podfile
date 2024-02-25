@@ -19,6 +19,8 @@ prepare_react_native_project!
 # ```
 flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
 
+$isEncryptedDB = true
+
 # WatermelonDB dependency
 pod 'simdjson', path: '../node_modules/@nozbe/simdjson', modular_headers: true
 
