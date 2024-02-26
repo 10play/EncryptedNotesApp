@@ -944,11 +944,19 @@ PODS:
   - React-Mapbuffer (0.73.4):
     - glog
     - React-debug
+  - react-native-fast-tflite (1.2.0):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
+    - React-Core
   - react-native-safe-area-context (4.9.0):
     - React-Core
   - react-native-webview (13.8.1):
     - glog
     - RCT-Folly (= 2022.05.16.00)
+    - React-Core
+  - react-native-worklets-core (0.3.0):
+    - React
+    - React-callinvoker
     - React-Core
   - React-nativeconfig (0.73.4)
   - React-NativeModulesApple (0.73.4):
@@ -1134,10 +1142,16 @@ PODS:
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
+  - vision-camera-resize-plugin (2.0.1):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
+    - React-Core
+    - VisionCamera
   - VisionCamera (3.9.0):
     - React
     - React-callinvoker
     - React-Core
+    - react-native-worklets-core
   - WatermelonDB (0.27.1):
     - React
     - simdjson
@@ -1197,8 +1211,10 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector-modern`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
+  - react-native-fast-tflite (from `../node_modules/react-native-fast-tflite`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-webview (from `../node_modules/react-native-webview`)
+  - react-native-worklets-core (from `../node_modules/react-native-worklets-core`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1223,6 +1239,7 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - "simdjson (from `../node_modules/@nozbe/simdjson`)"
   - "tentap (from `../node_modules/@10play/tentap-editor`)"
+  - vision-camera-resize-plugin (from `../node_modules/vision-camera-resize-plugin`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - "WatermelonDB (from `../node_modules/@nozbe/watermelondb`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -1300,10 +1317,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   React-Mapbuffer:
     :path: "../node_modules/react-native/ReactCommon"
+  react-native-fast-tflite:
+    :path: "../node_modules/react-native-fast-tflite"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
+  react-native-worklets-core:
+    :path: "../node_modules/react-native-worklets-core"
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
   React-NativeModulesApple:
@@ -1352,6 +1373,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@nozbe/simdjson"
   tentap:
     :path: "../node_modules/@10play/tentap-editor"
+  vision-camera-resize-plugin:
+    :path: "../node_modules/vision-camera-resize-plugin"
   VisionCamera:
     :path: "../node_modules/react-native-vision-camera"
   WatermelonDB:
@@ -1399,8 +1422,10 @@ SPEC CHECKSUMS:
   React-jsinspector: 9ac353eccf6ab54d1e0a33862ba91221d1e88460
   React-logger: 0a57b68dd2aec7ff738195f081f0520724b35dab
   React-Mapbuffer: 63913773ed7f96b814a2521e13e6d010282096ad
+  react-native-fast-tflite: 84a7f88f52fd954aa3860b8c7f97f08b1171ee8d
   react-native-safe-area-context: b97eb6f9e3b7f437806c2ce5983f479f8eb5de4b
   react-native-webview: 0f93dc8f4208ae5365884922c3cd14da5037ca4c
+  react-native-worklets-core: a894d572639fcf37c6d284cc799882d25d00c93d
   React-nativeconfig: d7af5bae6da70fa15ce44f045621cf99ed24087c
   React-NativeModulesApple: 0123905d5699853ac68519607555a9a4f5c7b3ac
   React-perflogger: 8a1e1af5733004bdd91258dcefbde21e0d1faccd
@@ -1427,7 +1452,8 @@ SPEC CHECKSUMS:
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   SQLCipher: 838309284f29953a28ad2e81d87d55ea6b7c74fd
   tentap: 246a29aafe0d53bfd2e85a8cc149efc0796da163
-  VisionCamera: 7a5c87805b13adaaa557132b44879ed1e1e39786
+  vision-camera-resize-plugin: 536345c29f42e04438d34d0cada7b4992a8fc104
+  VisionCamera: 72ec2908dff5de402074d0cfd41932cd33c1fe65
   WatermelonDB: 998c0ce083a2c73d5973d5ff2ba83e9d850548d6
   Yoga: 64cd2a583ead952b0315d5135bf39e053ae9be70
 

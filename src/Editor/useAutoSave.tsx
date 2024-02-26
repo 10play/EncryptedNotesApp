@@ -9,21 +9,26 @@ export const useAutoSave = (editor: EditorBridge, note: NoteModel) => {
 
   const docTitle = useEditorTitle(editor);
   const htmlContent = useEditorContent(editor, {type: 'html'});
+  const textContent = useEditorContent(editor, {type: 'text'});
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const saveContent = useCallback(
-    debounce(async (note: NoteModel, html: string, title: string) => {
-      await note.updateNote(title, html);
-      setIsSaving(false);
-    }),
+    debounce(
+      async (note: NoteModel, title: string, html: string, text: string) => {
+        await note.updateNote(title, html, text);
+        setIsSaving(false);
+      },
+    ),
     [],
   );
 
   useEffect(() => {
-    if (htmlContent === undefined || docTitle === undefined) return;
+    if (htmlContent === undefined) return;
+    if (docTitle === undefined) return;
+    if (textContent === undefined) return;
     setIsSaving(true);
-    saveContent(note, htmlContent, docTitle);
-  }, [note, saveContent, htmlContent, docTitle]);
+    saveContent(note, docTitle, htmlContent, textContent);
+  }, [note, saveContent, htmlContent, docTitle, textContent]);
 
   return isSaving;
 };

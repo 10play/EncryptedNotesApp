@@ -41,8 +41,10 @@ export const Editor = ({
 
   const editorCSS =
     theme === 'dark' ? `${baseEditorCSS} ${darkEditorCss}` : baseEditorCSS;
+
   const editor = useEditorBridge({
     avoidIosKeyboard: true, // Keep content above keyboard on ios
+    autofocus: true,
     initialContent: note.html,
     bridgeExtensions: [
       ...TenTapStartKit,
@@ -77,12 +79,14 @@ export const Editor = ({
     string | undefined
   >(undefined);
 
-  const onPhoto = async (photoPath: string) => {
+  const onPhoto = async (photoPath: string, captions: string[]) => {
     setCameraOn(false);
     editor.setImage(`file://${photoPath}`);
     const editorState = editor.getEditorState();
     editor.setSelection(editorState.selection.from, editorState.selection.to);
     editor.focus();
+    const uniqcaptions = Array.from(new Set([...note.captions, ...captions]));
+    await note.updateCaptions(uniqcaptions);
   };
 
   return (

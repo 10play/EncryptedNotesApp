@@ -52,7 +52,7 @@ export const EditorToolbar = ({
     items.splice(10, 0, {
       onPress: () => () => {
         const isActive = isCameraOn;
-        if (isActive) editor.focus();
+        editor.blur();
         setCameraOn(!isActive);
       },
       active: () => isCameraOn,

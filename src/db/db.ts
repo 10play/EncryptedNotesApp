@@ -10,6 +10,8 @@ const schema = appSchema({
         {name: 'title', type: 'string'},
         {name: 'subtitle', type: 'string', isOptional: true},
         {name: 'html', type: 'string'},
+        {name: 'captions', type: 'string', isIndexed: true},
+        {name: 'text', type: 'string'},
       ],
     }),
   ],
