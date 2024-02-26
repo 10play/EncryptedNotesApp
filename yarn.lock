@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@10play/tentap-editor@0.4.42":
-  version "0.4.42"
-  resolved "https://registry.yarnpkg.com/@10play/tentap-editor/-/tentap-editor-0.4.42.tgz#9dd2510e101ca2c84f80c8f035c4be85982e076b"
-  integrity sha512-iG+N3v6GjmXPIdXBLD9gPh0g0fOI4NSvqyCrF82XLTbiPgohr/AVFp2GTj6i9wcRqJLhPZ7Omi4Zu5a8vtOw3g==
+"@10play/tentap-editor@0.4.44":
+  version "0.4.44"
+  resolved "https://registry.yarnpkg.com/@10play/tentap-editor/-/tentap-editor-0.4.44.tgz#503a6c0c2a6a83e18bd28ef4e8fe67365169bdef"
+  integrity sha512-AfxUm/IWZlNGgn5C1WFa4HarhLyQ3gVxC8oa5mE++UfAuxW1ApE26rL5QY0Q0zNctVQYnby4v8sN9AlwB2DrUA==
   dependencies:
     "@tiptap/extension-blockquote" "^2.2.1"
     "@tiptap/extension-bold" "^2.2.1"
@@ -14,6 +14,7 @@
     "@tiptap/extension-code-block" "^2.2.1"
     "@tiptap/extension-color" "^2.1.16"
     "@tiptap/extension-document" "^2.2.1"
+    "@tiptap/extension-dropcursor" "^2.2.4"
     "@tiptap/extension-heading" "^2.2.1"
     "@tiptap/extension-highlight" "^2.1.16"
     "@tiptap/extension-history" "^2.2.1"
@@ -2117,6 +2118,11 @@
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-dropcursor/-/extension-dropcursor-2.2.3.tgz#f58f37b41cc6b41ae047c9b3ce25db58b1c06bb7"
   integrity sha512-SFvxgVX8/l3H+fV1q6dwmVEwlHuGbaKp1pkQb16/cDiWke/AWOBFTGOIVDfulLI5IiRIL7u3uc+Fy7BXrGDqQw==
+
+"@tiptap/extension-dropcursor@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-dropcursor/-/extension-dropcursor-2.2.4.tgz#df39861159a022029f733924e9a3977a76dfed17"
+  integrity sha512-IHwkEKmqpqXyJi16h7871NrcIqeyN7I6XRE2qdqi+MhGigVWI8nWHoYbjRKa7K/1uhs5zeRYyDlq5EuZyL6mgA==
 
 "@tiptap/extension-floating-menu@^2.2.3":
   version "2.2.3"

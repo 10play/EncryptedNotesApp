@@ -54,9 +54,7 @@ export const Home = () => {
   const createNote = async () => {
     if (!db) return;
     await db.write(async () => {
-      await db.collections.get<NoteModel>(NotesTable).create(note => {
-        note.title = 'Untitled';
-      });
+      await db.collections.get<NoteModel>(NotesTable).create();
     });
   };
 
@@ -104,7 +102,7 @@ const _NoteListItem = ({note}: NoteListItemProps) => {
       onPress={() => {
         navigate('Editor', {note});
       }}>
-      <StyledText>{note.title}</StyledText>
+      <StyledText>{note.title || 'Untitled Note'}</StyledText>
       <DeleteButton onPress={() => note.deleteNote()}>
         <StyledText>Delete</StyledText>
       </DeleteButton>
@@ -133,12 +131,12 @@ const _NotesList = ({notes}: NotesListProps) => {
 
 // Enhance our _NoteList with notes
 const enhance = withObservables(['query'], ({query}: {query: string}) => {
-  const notes = dbManager
+  const notesCollection = dbManager
     .getRequiredDB()
     .collections.get<NoteModel>(NotesTable);
   return {
     notes: query
-      ? notes
+      ? notesCollection
           .query(
             Q.or([
               Q.where(NoteFields.Text, Q.like(`%${query}%`)),
@@ -146,7 +144,7 @@ const enhance = withObservables(['query'], ({query}: {query: string}) => {
             ]),
           )
           .observe()
-      : notes.query().observe(),
+      : notesCollection.query().observe(),
   };
 });
 const NotesList = enhance(_NotesList);

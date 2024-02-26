@@ -8,7 +8,6 @@ import {
   HeadingBridge,
   ColorKeyboard,
   CustomKeyboard,
-  darkEditorTheme,
   darkEditorCss,
 } from '@10play/tentap-editor';
 import {KeyboardAvoidingView, Platform} from 'react-native';
@@ -22,14 +21,26 @@ import {EditorToolbar} from './EditorToolbar';
 import {EditorHeader} from './EditorHeader';
 import {useAutoSave} from './useAutoSave';
 import {useTheme} from '../theme/ThemeContext';
+import {css} from 'styled-components/native';
+import {
+  darkColorCSS,
+  darkEditorTheme,
+  lightColorCSS,
+  lightEditorTheme,
+} from '../theme/editorTheme';
 
-const baseEditorCSS = `
-* {
+const baseEditorCSS = css`
+  * {
     font-family: sans-serif;
-}
-body {
-  padding: 12px;
-}
+  }
+  body {
+    padding: 12px;
+  }
+  img {
+    max-width: 80%;
+    height: auto;
+    padding: 0 10%;
+  }
 `;
 
 export const Editor = ({
@@ -40,7 +51,9 @@ export const Editor = ({
   const [theme] = useTheme();
 
   const editorCSS =
-    theme === 'dark' ? `${baseEditorCSS} ${darkEditorCss}` : baseEditorCSS;
+    theme === 'dark'
+      ? `${baseEditorCSS} ${darkEditorCss} ${darkColorCSS}`
+      : `${baseEditorCSS} ${lightColorCSS}`;
 
   const editor = useEditorBridge({
     avoidIosKeyboard: true, // Keep content above keyboard on ios
@@ -65,7 +78,7 @@ export const Editor = ({
         }
         `),
     ],
-    theme: theme === 'dark' ? darkEditorTheme : undefined,
+    theme: theme === 'dark' ? darkEditorTheme : lightEditorTheme,
   });
   // autosave
   useAutoSave(editor, note);
@@ -91,7 +104,10 @@ export const Editor = ({
 
   return (
     <Layout ref={rootRef}>
-      <EditorHeader editor={editor} initialTitle={note.title} />
+      <EditorHeader
+        editor={editor}
+        initialTitle={note.title || 'Untitled Note'}
+      />
       <RichText
         editor={editor}
         source={{uri: localEditorSRC}}
