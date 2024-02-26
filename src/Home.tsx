@@ -1,13 +1,14 @@
 import React from 'react';
 import {withObservables} from '@nozbe/watermelondb/react';
 import {dbManager, useDB} from './db/useDB';
-import {NoteModel, NotesTable} from './db/Note';
-import {Button, FlatList, ListRenderItem, Text} from 'react-native';
+import {NoteFields, NoteModel, NotesTable} from './db/Note';
+import {Button, FlatList, ListRenderItem} from 'react-native';
 import {navigate} from './utils/navigation';
 import styled from 'styled-components/native';
 import {themes} from './theme/theme';
 import {StyledText} from './Components/StyledText';
 import {useTheme} from './theme/ThemeContext';
+import {Q} from '@nozbe/watermelondb';
 
 const HomeContainer = styled.View`
   background-color: ${props => props.theme['--background-primary']};
@@ -33,10 +34,22 @@ const CreateNotePlusText = styled.Text`
   padding-bottom: 7px; /* # TODO use icon */
   padding-left: 1px;
 `;
+const SearchInput = styled.TextInput`
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid #cccccc;
+  padding-horizontal: 20px;
+  font-size: 16px;
+  color: #333333;
+  background-color: #ffffff;
+  margin: 10px 0;
+  elevation: 4;
+`;
 
 export const Home = () => {
   const db = useDB();
   const [, toggleTheme] = useTheme();
+  const [queryValue, setQueryValue] = React.useState('');
 
   const createNote = async () => {
     if (!db) return;
@@ -50,10 +63,16 @@ export const Home = () => {
   return (
     <HomeContainer>
       <Button title="Toggle Theme" onPress={() => toggleTheme()} />
+      <SearchInput
+        value={queryValue}
+        onChangeText={text => {
+          setQueryValue(text);
+        }}
+      />
       <CreateNoteButton onPress={createNote} disabled={!db}>
         <CreateNotePlusText>+</CreateNotePlusText>
       </CreateNoteButton>
-      <NotesList />
+      <NotesList query={queryValue} />
     </HomeContainer>
   );
 };
@@ -97,6 +116,7 @@ const NoteListItem = withObservables(['note'], ({note}: NoteListItemProps) => ({
 }))(_NoteListItem);
 interface NotesListProps {
   notes: NoteModel[];
+  query: string;
 }
 const _NotesList = ({notes}: NotesListProps) => {
   const renderNode: ListRenderItem<NoteModel> = ({item: note}) => (
@@ -112,11 +132,21 @@ const _NotesList = ({notes}: NotesListProps) => {
 };
 
 // Enhance our _NoteList with notes
-const enhance = withObservables([], () => ({
-  notes: dbManager
+const enhance = withObservables(['query'], ({query}: {query: string}) => {
+  const notes = dbManager
     .getRequiredDB()
-    .collections.get<NoteModel>(NotesTable)
-    .query()
-    .observe(),
-}));
+    .collections.get<NoteModel>(NotesTable);
+  return {
+    notes: query
+      ? notes
+          .query(
+            Q.or([
+              Q.where(NoteFields.Text, Q.like(`%${query}%`)),
+              Q.where(NoteFields.Captions, Q.like(`%${query}%`)),
+            ]),
+          )
+          .observe()
+      : notes.query().observe(),
+  };
+});
 const NotesList = enhance(_NotesList);

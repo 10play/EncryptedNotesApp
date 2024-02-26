@@ -11,7 +11,7 @@ const schema = appSchema({
         {name: 'subtitle', type: 'string', isOptional: true},
         {name: 'html', type: 'string'},
         {name: 'captions', type: 'string', isIndexed: true},
-        {name: 'text', type: 'string'},
+        {name: 'text', type: 'string', isIndexed: true},
       ],
     }),
   ],
