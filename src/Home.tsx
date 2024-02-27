@@ -2,7 +2,12 @@ import React from 'react';
 import {withObservables} from '@nozbe/watermelondb/react';
 import {dbManager, useDB} from './db/useDB';
 import {NoteFields, NoteModel, NotesTable} from './db/Note';
-import {Button, FlatList, ListRenderItem} from 'react-native';
+import {
+  ActivityIndicator,
+  Button,
+  FlatList,
+  ListRenderItem,
+} from 'react-native';
 import {navigate} from './utils/navigation';
 import styled from 'styled-components/native';
 import {themes} from './theme/theme';
@@ -54,9 +59,11 @@ export const Home = () => {
   const createNote = async () => {
     if (!db) return;
     await db.write(async () => {
-      await db.collections.get<NoteModel>(NotesTable).create();
+      await db.collections.get<NoteModel>(NotesTable).create(() => {});
     });
   };
+
+  if (!db) return <ActivityIndicator />;
 
   return (
     <HomeContainer>

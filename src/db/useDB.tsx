@@ -1,6 +1,7 @@
 import {Database} from '@nozbe/watermelondb';
 import {useEffect, useState} from 'react';
 import {openDB} from './db';
+import {getPassphrase} from '../utils/keychain';
 
 class DBManager {
   private dbCBs: ((db: Database) => void)[] = [];
@@ -11,8 +12,7 @@ class DBManager {
   }
 
   async init() {
-    // TODO get passphrase
-    const passphrase = 'password';
+    const passphrase = await getPassphrase();
     this.db = openDB(passphrase);
     this.dbCBs.forEach(cb => cb(this.db!));
   }
