@@ -49,6 +49,7 @@ export const Editor = ({
   },
 }: NativeStackScreenProps<RootStackParamList, 'Editor', undefined>) => {
   const [theme] = useTheme();
+  const [loaded, setLoaded] = React.useState(false);
 
   const editorCSS =
     theme === 'dark'
@@ -110,13 +111,14 @@ export const Editor = ({
       />
       <RichText
         editor={editor}
-        source={{uri: localEditorSRC}}
+        source={loaded ? {uri: localEditorSRC} : {html: ''}}
         allowFileAccess={true}
         allowFileAccessFromFileURLs={true}
         allowUniversalAccessFromFileURLs={true}
         originWhitelist={['*']}
         mixedContentMode="always"
         allowingReadAccessToURL={editorDirectory}
+        onLoad={() => setLoaded(true)}
       />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
