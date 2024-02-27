@@ -19,7 +19,6 @@ import {RootStackParamList} from '../utils/navigation';
 import {Layout} from '../Components/Layout';
 import {EditorToolbar} from './EditorToolbar';
 import {EditorHeader} from './EditorHeader';
-import {useAutoSave} from './useAutoSave';
 import {useTheme} from '../theme/ThemeContext';
 import {css} from 'styled-components/native';
 import {
@@ -28,6 +27,7 @@ import {
   lightColorCSS,
   lightEditorTheme,
 } from '../theme/editorTheme';
+import {AutoSave} from './AutoSave';
 
 const baseEditorCSS = css`
   * {
@@ -81,8 +81,6 @@ export const Editor = ({
     ],
     theme: theme === 'dark' ? darkEditorTheme : lightEditorTheme,
   });
-  // autosave
-  useAutoSave(editor, note);
 
   const [isCameraOn, setCameraOn] = React.useState(false);
   const cameraRef = React.useRef<Camera>(null);
@@ -143,6 +141,7 @@ export const Editor = ({
         />
       </KeyboardAvoidingView>
       <EditorCamera cameraRef={cameraRef} onPhoto={onPhoto} show={isCameraOn} />
+      <AutoSave editor={editor} note={note} />
     </Layout>
   );
 };
