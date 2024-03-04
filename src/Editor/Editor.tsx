@@ -34,7 +34,7 @@ const baseEditorCSS = css`
     font-family: sans-serif;
   }
   body {
-    padding: 12px;
+    padding: 22px;
   }
   img {
     max-width: 80%;

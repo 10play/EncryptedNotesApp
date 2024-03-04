@@ -12,7 +12,7 @@ const HeaderContainer = styled.View`
   height: 44px;
   align-items: center;
   border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme['--border-secondary']};
+  border-bottom-color: ${props => props.theme['--border-primary']};
   flex-direction: row;
   gap: 12px;
 `;
@@ -22,7 +22,7 @@ const BackChevron = styled.Image`
   tint-color: ${props => props.theme['--text-primary']};
 `;
 const HeaderTitle = styled(StyledText)`
-  font-size: 20px;
+  font-size: 14px;
 `;
 
 interface EditorHeaderProps {
