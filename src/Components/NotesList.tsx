@@ -10,14 +10,15 @@ import {dbManager} from '../db/useDB';
 import {doc} from '../assets';
 
 const NoteListButton = styled.TouchableOpacity`
-  width: 100%;
-  padding: 16px;
+  margin-horizontal: 10px;
+  padding-horizontal: 8px;
+  padding-vertical: 16px;
   border-radius: 10px;
-  background-color: ${props => props.theme['--background-primary']};
+  background-color: ${props => props.theme['--background-secondary']};
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  box-shadow: 0 2px 4px ${props => props.theme['--border-shadow']}; /* Subtle shadow for depth */
+  box-shadow: 0px 2px 4px ${props => props.theme['--border-shadow']}; /* Subtle shadow for depth */
   elevation: 3; /* Elevation for Android shadow */
   margin-bottom: 8px; /* Add space between items for clarity */
 

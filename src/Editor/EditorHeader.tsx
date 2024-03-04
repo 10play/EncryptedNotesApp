@@ -40,8 +40,8 @@ const HistoryIcon = styled.Image.attrs(({theme}) => {
     tintColor: theme['--text-primary'],
   };
 })`
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 `;
 
 interface EditorHeaderProps {

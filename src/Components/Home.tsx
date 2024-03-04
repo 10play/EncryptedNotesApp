@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 import {useTheme} from '../theme/ThemeContext';
 import {NotesList} from './NotesList';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {create} from '../assets';
+import {create, search} from '../assets';
 import {StyledText} from './StyledText';
 
 const HomeContainer = styled(SafeAreaView)`
@@ -46,22 +46,41 @@ const SearchInput = styled.TextInput.attrs(({theme}) => {
     returnKeyType: 'done',
   };
 })`
-  flex: 1;
-  height: 40px;
-  border-radius: 20px;
-  border: 1px solid ${props => props.theme['--border-secondary']};
-  padding-horizontal: 20px;
-  font-size: 16px;
-  color: #333333;
+  font-size: 14px;
+  color: ${props => props.theme['--text-primary']};
   background-color: ${props => props.theme['--background-primary']};
   margin: 10px 0;
   elevation: 4;
+  height: 29px;
+  overflow: hidden;
+`;
+
+const SearchContainer = styled.View`
+  flex-direction: row;
+  border-radius: 10px;
+  border: 1px solid ${props => props.theme['--border-secondary']};
+  align-items: center;
+  gap: 8px;
+  padding-horizontal: 12px;
+  flex: 1;
+  height: 31px;
+`;
+
+const SearchIcon = styled.Image.attrs(({theme}) => {
+  return {
+    source: search,
+    tintColor: theme['--text-secondary'],
+  };
+})`
+  width: 10px;
+  height: 10px;
 `;
 
 const HeaderTitle = styled(StyledText)`
   font-size: 20px;
   font-weight: bold;
   text-align: center;
+  padding-vertical: 20px;
 `;
 
 export const Home = () => {
@@ -82,17 +101,20 @@ export const Home = () => {
     <HomeContainer>
       <HeaderTitle>Encrypted Notes App</HeaderTitle>
       <HomeHeader>
-        <SearchInput
-          value={queryValue}
-          placeholder="Search notes..."
-          onChangeText={text => {
-            setQueryValue(text);
-          }}
-        />
+        <SearchContainer>
+          <SearchIcon />
+          <SearchInput
+            value={queryValue}
+            placeholder="Search notes..."
+            onChangeText={text => {
+              setQueryValue(text);
+            }}
+          />
+        </SearchContainer>
         <Switch
           value={theme === 'light'}
           onValueChange={toggleTheme}
-          trackColor={{false: '#767577', true: '#6aaaf2'}} // Grey when off, blue when on
+          trackColor={{false: '#767577', true: '#6aaaf2'}}
         />
       </HomeHeader>
       <CreateNoteButton
