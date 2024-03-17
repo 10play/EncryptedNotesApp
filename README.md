@@ -4,6 +4,12 @@ Check out the dev blog - https://dev.to/17amir17/encrypted-note-editor-app-in-re
 ![Screenshot 2024-03-04 at 17 31 06](https://github.com/10play/EncryptedNotesApp/assets/36531255/8bfc9e5a-03e8-45e1-88ef-100ac9bc6e6f)
 
 
+
+
+https://github.com/10play/EncryptedNotesApp/assets/36531255/274e8d8d-2e21-4944-9cba-6bae06eb600b
+
+
+
 ### The Editor
 The core of our app is the editor. We need an easy to use and robust rich text editor, that supports all of the features we want such as: headings, lists, placeholders, markdown, color, images, bold italic etc… For this we will use [@10play/tentap-editor](https://github.com/10play/10Tap-Editor) which is a rich text editor for react native based on [Tiptap](https://tiptap.dev/). 
 
